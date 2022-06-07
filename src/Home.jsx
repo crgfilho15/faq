@@ -4,12 +4,20 @@ import { BiMinus } from "react-icons/bi";
 import './Home.css'
 
 export default function Home() {
-    const [ pressed, setPressed ] = useState(false)
+    const [ pressed, setPressed ] = useState(-1)
     const faq = [
         {title:"Lorem ipsum dolor sit amet?", content:"Tenetur ullam rerum ad iusto possimus sequi mollitia dolore sunt quam praesentium. Tenetur ullam rerum ad iusto possimus sequi mollitia dolore sunt quam praesentium.Tenetur ullam rerum ad iusto possimus sequi mollitia dolore sunt quam praesentium."},
         {title:"Dignissimos sequi architecto?", content:"Aperiam ab atque incidunt dolores ullam est, earum ipsa recusandae velit cumque. Aperiam ab atque incidunt dolores ullam est, earum ipsa recusandae velit cumque."},
         {title:"Voluptas praesentium facere?", content:"Blanditiis aliquid adipisci quisquam reiciendis voluptates itaque."}
     ]
+
+    function Pressed(index) {
+        setPressed(index)
+
+        if(pressed === index) {
+            setPressed(-1)
+        }
+    }
     
   return (
     <div className='home'>
@@ -20,12 +28,12 @@ export default function Home() {
           faq.map((item, index) => {
             return(
             <div className='faq'>
-                <button className='button' onClick={()=> setPressed(!pressed)} style={{backgroundColor: pressed? "#105057" : "#008593"}}>
-                {item.title}
-                {pressed? <BiMinus color={"#fff"}/> : <BsPlusLg color={"#fff"} size={10}/>}
+                <button className= {pressed === index? 'button light' : 'button dark'} onClick={()=> Pressed(index)}>
+                    {item.title}
+                    {pressed === index ? <BiMinus color={"#fff"} size={20}/> : <BsPlusLg color={"#fff"} size={20}/>}
                 </button>
 
-                <div className='content' style={{display: pressed? "flex" : "none"}}>{item.content} </div>
+                <div className = {pressed === index ? 'content flex' : 'content none'}>{item.content} </div>
             </div>
             )
           })
